@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, ReactNode, useEffect, Dispatch, SetStateAction } from "react";
-import { Lead, LeadStatus } from "../types";
+import { Lead } from "../types";
 import leadsData from '../data/leads.json';
 import convertDataLead from "../utils/convertDataLead";
 
@@ -18,7 +18,8 @@ interface LeadProviderProps {
 }
 
 export const LeadProvider = ({ children }: LeadProviderProps) => {
-    const [originalLeads] = useState<Lead[]>(convertDataLead(leadsData)); // nunca muda
+    const sortedLeads = [...convertDataLead(leadsData)].sort((a, b) => b.score - a.score);
+    const [originalLeads] = useState<Lead[]>(sortedLeads);
     const [filteredBySearch, setFilteredBySearch] = useState<Lead[]>(originalLeads);
     const [filteredByStatus, setFilteredByStatus] = useState<Lead[]>(originalLeads);
 
@@ -28,16 +29,12 @@ export const LeadProvider = ({ children }: LeadProviderProps) => {
         let updatedLeads = originalLeads;
 
         if (filteredBySearch.length !== originalLeads.length) {
-            console.log('search', filteredBySearch);
             updatedLeads = updatedLeads.filter(lead => filteredBySearch.includes(lead));
         }
 
         if (filteredByStatus.length !== originalLeads.length) {
-            console.log('status', filteredByStatus);
             updatedLeads = updatedLeads.filter(lead => filteredByStatus.includes(lead));
         }
-
-        console.log('setou!');
 
         setLeads(updatedLeads);
     }, [filteredBySearch, filteredByStatus]);
