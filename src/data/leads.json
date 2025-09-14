@@ -1,0 +1,22 @@
+[
+  { "id": "1", "name": "Alice Johnson", "company": "Acme Corp", "email": "alice@acmecorp.com", "source": "Website", "score": 78, "status": "New" },
+  { "id": "2", "name": "Bob Smith", "company": "Globex", "email": "bob@globex.com", "source": "Referral", "score": 54, "status": "Contacted" },
+  { "id": "3", "name": "Carol Davis", "company": "Initech", "email": "carol@initech.com", "source": "Website", "score": 62, "status": "Qualified" },
+  { "id": "4", "name": "David Wilson", "company": "Umbrella Corp", "email": "david@umbrella.com", "source": "Referral", "score": 85, "status": "Lost" },
+  { "id": "5", "name": "Eve Miller", "company": "Soylent Corp", "email": "eve@soylent.com", "source": "Website", "score": 91, "status": "New" },
+  { "id": "6", "name": "Frank Harris", "company": "Hooli", "email": "frank@hooli.com", "source": "Referral", "score": 47, "status": "Contacted" },
+  { "id": "7", "name": "Grace Lee", "company": "Wonka Industries", "email": "grace@wonka.com", "source": "Website", "score": 69, "status": "Qualified" },
+  { "id": "8", "name": "Henry Clark", "company": "Stark Industries", "email": "henry@stark.com", "source": "Referral", "score": 74, "status": "Lost" },
+  { "id": "9", "name": "Ivy Martinez", "company": "Wayne Enterprises", "email": "ivy@wayne.com", "source": "Website", "score": 88, "status": "New" },
+  { "id": "10", "name": "Jack Robinson", "company": "Oscorp", "email": "jack@oscorp.com", "source": "Referral", "score": 53, "status": "Contacted" },
+  { "id": "11", "name": "Karen Lewis", "company": "Tyrell Corp", "email": "karen@tyrell.com", "source": "Website", "score": 65, "status": "Qualified" },
+  { "id": "12", "name": "Leo Walker", "company": "Cyberdyne Systems", "email": "leo@cyberdyne.com", "source": "Referral", "score": 72, "status": "Lost" },
+  { "id": "13", "name": "Mia Hall", "company": "Soylent Corp", "email": "mia@soylent.com", "source": "Website", "score": 81, "status": "New" },
+  { "id": "14", "name": "Nick Allen", "company": "Umbrella Corp", "email": "nick@umbrella.com", "source": "Referral", "score": 44, "status": "Contacted" },
+  { "id": "15", "name": "Olivia Young", "company": "Initech", "email": "olivia@initech.com", "source": "Website", "score": 79, "status": "Qualified" },
+  { "id": "16", "name": "Paul King", "company": "Hooli", "email": "paul@hooli.com", "source": "Referral", "score": 60, "status": "Lost" },
+  { "id": "17", "name": "Quinn Wright", "company": "Acme Corp", "email": "quinn@acmecorp.com", "source": "Website", "score": 90, "status": "New" },
+  { "id": "18", "name": "Rachel Scott", "company": "Globex", "email": "rachel@globex.com", "source": "Referral", "score": 50, "status": "Contacted" },
+  { "id": "19", "name": "Sam Green", "company": "Wayne Enterprises", "email": "sam@wayne.com", "source": "Website", "score": 77, "status": "Qualified" },
+  { "id": "20", "name": "Tina Adams", "company": "Stark Industries", "email": "tina@stark.com", "source": "Referral", "score": 68, "status": "Lost" }
+]
