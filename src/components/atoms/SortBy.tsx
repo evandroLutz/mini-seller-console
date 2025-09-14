@@ -8,6 +8,7 @@ function SortBy(): JSX.Element {
     useEffect(() => {
         const sortedLeads = [...leads].sort((a, b) => cresc ? a.score - b.score : b.score - a.score);
         setLeads(sortedLeads);
+        console.log('carregou');
     }, [cresc]);
 
 

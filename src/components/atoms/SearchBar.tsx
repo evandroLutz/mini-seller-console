@@ -1,29 +1,26 @@
-import { ChangeEvent, JSX, useEffect, useState } from "react";
+import { ChangeEvent, JSX, useState, useEffect } from "react";
 import { useLeads } from "../../contexts/LeadContext";
-import leadsData from '../../data/leads.json';
-import convertDataLead from "../../utils/convertDataLead";
+import { XIcon } from "lucide-react";
 
 function SearchBar(): JSX.Element {
   const [searchTerm, setSearchTerm] = useState("");
-  const { setLeads } = useLeads();
+  const { originalLeads, setFilteredBySearch } = useLeads();
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
 
-
   useEffect(() => {
-    const filteredLeads = leadsData.filter((lead: { name: string; company: string }) =>
+    const filteredLeads = originalLeads.filter((lead) =>
       lead.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       lead.company.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    setLeads(convertDataLead(filteredLeads));
+
+    setFilteredBySearch(filteredLeads);
   }, [searchTerm]);
 
-
-
   return (
-    <div className="w-200 mb-4">
+    <div className="relative w-full sm:w-80 mb-4">
       <input
         type="text"
         placeholder="Search by name or company..."
@@ -31,6 +28,12 @@ function SearchBar(): JSX.Element {
         value={searchTerm}
         onChange={handleSearchChange}
       />
+      {searchTerm && (
+        <XIcon
+          onClick={() => setSearchTerm("")}
+          className="cursor-pointer absolute right-2 top-1/2 transform -translate-y-1/2"
+        />
+      )}
     </div>
   );
 }

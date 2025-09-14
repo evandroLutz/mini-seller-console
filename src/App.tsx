@@ -3,6 +3,7 @@ import SearchBar from './components/atoms/SearchBar';
 import { LeadProvider } from './contexts/LeadContext';
 import LeadList from './components/molecules/LeadList';
 import SortBy from './components/atoms/SortBy';
+import Filter from './components/atoms/Filter';
 
 function App() {
   return (
@@ -13,6 +14,10 @@ function App() {
           <div className="mb-6">
             <SearchBar />
             <SortBy />
+            <h2 className="text-lg font-bold mb-4">Filter by Status</h2>
+            <Filter />
+            <div className="mt-6">
+            </div>
           </div>
           <LeadList />
         </div>

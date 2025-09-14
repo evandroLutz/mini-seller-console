@@ -1,17 +1,14 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, ReactNode, useEffect, Dispatch, SetStateAction } from "react";
 import { Lead, LeadStatus } from "../types";
 import leadsData from '../data/leads.json';
-
-const leadDataConverted: Lead[] = leadsData.map((lead) => ({
-    ...lead,
-    status: lead.status as LeadStatus,
-    createdAt: new Date(lead.createdAt),
-    updatedAt: new Date(lead.updatedAt),
-}));
+import convertDataLead from "../utils/convertDataLead";
 
 interface LeadContextType {
+  originalLeads: Lead[];
   leads: Lead[];
-  setLeads: React.Dispatch<React.SetStateAction<Lead[]>>;
+  setLeads: Dispatch<SetStateAction<Lead[]>>;
+  setFilteredBySearch: Dispatch<SetStateAction<Lead[]>>;
+  setFilteredByStatus: Dispatch<SetStateAction<Lead[]>>;
 }
 
 const LeadContext = createContext<LeadContextType | undefined>(undefined);
@@ -21,10 +18,32 @@ interface LeadProviderProps {
 }
 
 export const LeadProvider = ({ children }: LeadProviderProps) => {
-  const [leads, setLeads] = useState<Lead[]>(leadDataConverted);
+    const [originalLeads] = useState<Lead[]>(convertDataLead(leadsData)); // nunca muda
+    const [filteredBySearch, setFilteredBySearch] = useState<Lead[]>(originalLeads);
+    const [filteredByStatus, setFilteredByStatus] = useState<Lead[]>(originalLeads);
+
+    const [leads, setLeads] = useState<Lead[]>(originalLeads);
+
+    useEffect(() => {
+        let updatedLeads = originalLeads;
+
+        if (filteredBySearch.length !== originalLeads.length) {
+            console.log('search', filteredBySearch);
+            updatedLeads = updatedLeads.filter(lead => filteredBySearch.includes(lead));
+        }
+
+        if (filteredByStatus.length !== originalLeads.length) {
+            console.log('status', filteredByStatus);
+            updatedLeads = updatedLeads.filter(lead => filteredByStatus.includes(lead));
+        }
+
+        console.log('setou!');
+
+        setLeads(updatedLeads);
+    }, [filteredBySearch, filteredByStatus]);
 
   return (
-    <LeadContext.Provider value={{ leads, setLeads }}>
+    <LeadContext.Provider value={{ originalLeads, leads, setLeads, setFilteredBySearch, setFilteredByStatus }}>
       {children}
     </LeadContext.Provider>
   );
