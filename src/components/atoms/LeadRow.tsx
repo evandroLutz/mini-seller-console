@@ -10,8 +10,8 @@ function LeadRow({ lead }: { lead: Lead }): JSX.Element {
   
   return (
     <div onClick={() => setSelectedLead(lead)} className="cursor-pointer bg-gray-800 p-4 rounded-md mb-4 min-h-[120px] sm:min-h-[100px] flex items-center gap-x-4 rounded-xl bg-white p-10 shadow-lg outline outline-black/5 dark:bg-slate-800 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10">
-        <StatusIcon className="h-6 w-6" />
         {lead.name} - {lead.company} - {lead.email} - <Badge status={lead.status} />
+        <StatusIcon className="h-6 w-6" />
         <div className="ml-auto text-sm text-gray-500 dark:text-gray-400">Created {lead.createdAt.toLocaleDateString()}</div>
         <div className="text-sm text-gray-500 dark:text-gray-400">Last Updated: {lead.updatedAt.toLocaleDateString()}</div>
         <div className="text-sm text-gray-500 dark:text-gray-400">Score: {lead.score}</div>

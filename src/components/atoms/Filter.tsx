@@ -17,7 +17,7 @@ function Filter(): JSX.Element {
       );
       setFilteredByStatus(filteredLeads);
     }
-  }, [selectedStatus, originalLeads, setFilteredByStatus]);
+  }, [selectedStatus]);
 
   const toggleOption = (option: string) => {
     setSelectedStatus((prev) =>
