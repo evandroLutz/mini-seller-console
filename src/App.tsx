@@ -5,7 +5,7 @@ import LeadList from './components/molecules/LeadList';
 import SortBy from './components/atoms/SortBy';
 import Filter from './components/atoms/Filter';
 import { LeadSelectionProvider } from './contexts/SelectedLeadContext';
-import SlideOver from './components/atoms/SlideOver';
+import SlideOver from './components/molecules/SlideOver';
 
 function App() {
   return (
