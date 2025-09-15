@@ -17,6 +17,8 @@ export interface Opportunity {
   id: string;
   leadId: string;
   stage: 'New' | 'Qualified' | 'Proposal' | 'Negotiation' | 'Closed Won' | 'Closed Lost';
+  name: string,
+  accountName: string,
   amount?: number | null;
   createdAt: Date;
 }
