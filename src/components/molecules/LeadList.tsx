@@ -2,16 +2,21 @@ import { JSX, useState, useEffect } from "react";
 import { useLeads } from "../../contexts/LeadContext";
 import LeadRow from "../atoms/LeadRow";
 import Pagination from "../molecules/Pagination";
+import LoaderSpinner from "../atoms/LoaderSpinner";
 
 function LeadList(): JSX.Element {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  const { leads } = useLeads();
+  const { leads, loading } = useLeads();
 
   useEffect(() => {
     setCurrentPage(1);
   }, [leads]);
+
+  useEffect(() => {
+    console.log('terminou de carregar', leads);
+  }, [loading]);
 
   const totalPages = Math.ceil(leads.length / itemsPerPage);
 
@@ -27,7 +32,7 @@ function LeadList(): JSX.Element {
           <li key={lead.id}>
             <LeadRow lead={lead} />
           </li>
-        )): "No Leads Found with this filters"}
+        )): <LoaderSpinner/>}
       </ul>
 
       {totalPages > 1 && (

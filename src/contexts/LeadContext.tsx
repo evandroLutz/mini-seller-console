@@ -6,11 +6,12 @@ import { useLocalStorage } from "../hooks/useLocalStorage";
 
 interface LeadContextType {
   originalLeads: Lead[];
-  setOriginalLeads:  Dispatch<SetStateAction<Lead[]>>;
+  setOriginalLeads: Dispatch<SetStateAction<Lead[]>>;
   leads: Lead[];
   setLeads: Dispatch<SetStateAction<Lead[]>>;
   setFilteredBySearch: Dispatch<SetStateAction<Lead[]>>;
   setFilteredByStatus: Dispatch<SetStateAction<Lead[]>>;
+  loading: boolean;
 }
 
 const LeadContext = createContext<LeadContextType | undefined>(undefined);
@@ -19,46 +20,78 @@ interface LeadProviderProps {
   children: ReactNode;
 }
 
-
 export const LeadProvider = ({ children }: LeadProviderProps) => {
-    const sortedLeads = [...convertDataLead(leadsData)].sort((a, b) => b.score - a.score);
-    const [originalLeadsRaw, setOriginalLeads] = useLocalStorage<Lead[]>(
-      "leads-list",
-      sortedLeads);
+  const sortedLeads = [...convertDataLead(leadsData)].sort((a, b) => b.score - a.score);
 
-    const originalLeads = useMemo(() => 
-      originalLeadsRaw.map(lead => ({
+  const [originalLeadsRaw, setOriginalLeads] = useLocalStorage<Lead[]>(
+    "leads-list",
+    [],
+  );
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (originalLeadsRaw.length === 0) {
+        setOriginalLeads(sortedLeads);
+      }
+      setLoading(false);
+    }, 5000);
+
+      return () => clearTimeout(timer);
+  }, []);
+
+  const originalLeads = useMemo(
+    () =>
+      originalLeadsRaw.map((lead) => ({
         ...lead,
         createdAt: new Date(lead.createdAt),
         updatedAt: new Date(lead.updatedAt),
-      })), [originalLeadsRaw]
-    );
-    
-    const [filteredBySearch, setFilteredBySearch] = useState<Lead[]>(originalLeads);
-    const [filteredByStatus, setFilteredByStatus] = useState<Lead[]>(originalLeads);
+      })),
+    [originalLeadsRaw]
+  );
 
-    const [leads, setLeads] = useState<Lead[]>(originalLeads);
+  const [filteredBySearch, setFilteredBySearch] = useState<Lead[]>(originalLeads);
+  const [filteredByStatus, setFilteredByStatus] = useState<Lead[]>(originalLeads);
+  const [leads, setLeads] = useState<Lead[]>(originalLeads);
 
-    useEffect(() => {
-      let updatedLeads = originalLeads;
+  useEffect(() => {
+    setFilteredBySearch(originalLeads);
+    setFilteredByStatus(originalLeads);
+    setLeads(originalLeads);
+  }, [originalLeads]);
+  
 
-      if (filteredBySearch.length !== originalLeads.length) {
-        updatedLeads = updatedLeads.filter(lead =>
-          filteredBySearch.some(f => f.id === lead.id)
-        );
-      }
+  useEffect(() => {
+    let updatedLeads = originalLeads;
 
-      if (filteredByStatus.length !== originalLeads.length) {
-        updatedLeads = updatedLeads.filter(lead =>
-          filteredByStatus.some(f => f.id === lead.id)
-        );
-      }
+    if (filteredBySearch.length !== originalLeads.length) {
+      updatedLeads = updatedLeads.filter((lead) =>
+        filteredBySearch.some((f) => f.id === lead.id)
+      );
+    }
 
-      setLeads(updatedLeads);
-    }, [filteredBySearch, filteredByStatus, originalLeads]);
+    if (filteredByStatus.length !== originalLeads.length) {
+      updatedLeads = updatedLeads.filter((lead) =>
+        filteredByStatus.some((f) => f.id === lead.id)
+      );
+    }
+
+    setLeads(updatedLeads);
+  }, [filteredBySearch, filteredByStatus, originalLeads]);
 
   return (
-    <LeadContext.Provider value={{ originalLeads, setOriginalLeads, leads, setLeads, setFilteredBySearch, setFilteredByStatus }}>
+    <LeadContext.Provider
+      value={{
+        originalLeads,
+        setOriginalLeads,
+        leads,
+        setLeads,
+        setFilteredBySearch,
+        setFilteredByStatus,
+        loading,
+      }}
+    >
       {children}
     </LeadContext.Provider>
   );
