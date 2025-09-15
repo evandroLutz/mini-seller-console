@@ -11,9 +11,9 @@ function OpportunityCreate(): JSX.Element {
     const { selectedLead, isOpportunityCreating, setIsOpportunityCreating, setOpportunities } = useSelectedLead();
 
     const [stage, setStage] = useState<OpportunityStage>('New');
-    const [name, setName] = useState<string | undefined>(selectedLead?.name);
-    const [accountName, setAccountName] = useState<string | undefined>(selectedLead?.company);
-    const [amount, setAmount] = useState<number>(0);
+    const [name, setName] = useState<string>(selectedLead?.name || " ");
+    const [accountName, setAccountName] = useState<string>(selectedLead?.company || " ");
+    const [amount, setAmount] = useState<number | null>(0);
 
     const opportunityStage =  ['New','Qualified','Proposal','Negotiation','Closed Won','Closed Lost'];
 
@@ -32,16 +32,8 @@ function OpportunityCreate(): JSX.Element {
     }
 
     useEffect(() => {
-        if (selectedLead?.name) {
-            setName(selectedLead.name);
-        } else {
-            setName("");
-        }
-        if (selectedLead?.company) {
-            setAccountName(selectedLead.name);
-        } else {
-            setAccountName("");
-        }
+        setName(selectedLead?.name || "");
+        setAccountName(selectedLead?.company || "");
     }, [selectedLead]);
 
     return(
@@ -62,7 +54,7 @@ function OpportunityCreate(): JSX.Element {
                 </div>
                 <div className="flex items-center gap-4 cursor-pointer mb-2">
                   <span className="font-semibold min-w-[8rem]">Account Name:</span>
-                  <input onChange={(e) => setAccountName(e.target.value)} value={selectedLead?.company} type={"text"} className="w-full sm:w-auto px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
+                  <input onChange={(e) => setAccountName(e.target.value)} value={accountName} type={"text"} className="w-full sm:w-auto px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
                 </div>
                 <div className="flex gap-4 mt-6">
                     <Button onClick={() => persistOpportunity()} active={true} title={"Save Opportunity"} />
