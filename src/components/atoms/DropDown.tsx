@@ -4,10 +4,10 @@ import { LeadStatus } from "../../types";
 interface DropdownProps {
   label: string;
   onSelect?: (value: string) => void;
+  options: any[];
 }
 
-function Dropdown({ label, onSelect }: DropdownProps) {
-  const leadStatusOptions: LeadStatus[] = ["New", "Contacted", "Qualified", "Lost"];
+function Dropdown({ options, label, onSelect }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState<string | null>(null);
 
@@ -29,7 +29,7 @@ function Dropdown({ label, onSelect }: DropdownProps) {
 
       {isOpen && (
         <ul className="absolute w-full mt-1 bg-white border border-gray-200 rounded-md shadow-lg z-10">
-          {leadStatusOptions.map((option) => (
+          {options.map((option) => (
             <li
               key={option}
               className="bg-gray-800 px-4 py-2 hover:bg-indigo-500 hover:text-white cursor-pointer"

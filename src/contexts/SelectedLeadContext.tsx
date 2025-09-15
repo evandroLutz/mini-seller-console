@@ -4,6 +4,8 @@ import { Lead } from "../types";
 interface LeadSelectionContextType {
   selectedLead: Lead | null;
   setSelectedLead: Dispatch<SetStateAction<Lead | null>>;
+  isOpportunityCreating : boolean,
+  setIsOpportunityCreating: Dispatch<boolean>;
 }
 
 const LeadSelectionContext = createContext<LeadSelectionContextType | undefined>(undefined);
@@ -14,9 +16,10 @@ interface LeadSelectionProviderProps {
 
 export const LeadSelectionProvider = ({ children }: LeadSelectionProviderProps) => {
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null);
+  const [isOpportunityCreating, setIsOpportunityCreating] = useState<boolean>(false);
 
   return (
-    <LeadSelectionContext.Provider value={{ selectedLead, setSelectedLead }}>
+    <LeadSelectionContext.Provider value={{ selectedLead, setSelectedLead, isOpportunityCreating, setIsOpportunityCreating }}>
       {children}
     </LeadSelectionContext.Provider>
   );

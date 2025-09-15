@@ -1,5 +1,5 @@
 export type LeadStatus = 'New' | 'Contacted' | 'Qualified' | 'Lost';
-
+export type OpportunityStage = | 'New' | 'Qualified' | 'Proposal' | 'Negotiation' | 'Closed Won' | 'Closed Lost';
 export interface Lead {
   id: string;
   name: string;
@@ -16,8 +16,7 @@ export interface Lead {
 export interface Opportunity {
   id: string;
   leadId: string;
-  stage: 'New' | 'In Progress' | 'Closed';
+  stage: 'New' | 'Qualified' | 'Proposal' | 'Negotiation' | 'Closed Won' | 'Closed Lost';
   amount?: number | null;
   createdAt: Date;
-  updatedAt: Date;
 }

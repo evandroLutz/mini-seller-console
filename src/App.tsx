@@ -5,7 +5,9 @@ import LeadList from './components/molecules/LeadList';
 import SortBy from './components/atoms/SortBy';
 import Filter from './components/atoms/Filter';
 import { LeadSelectionProvider } from './contexts/SelectedLeadContext';
-import SlideOver from './components/molecules/SlideOver';
+import SlideOver from './components/molecules/LeadEdit';
+import LeadEdit from './components/molecules/LeadEdit';
+import OpportunityCreate from './components/atoms/OpportunityCreate';
 
 function App() {
   return (
@@ -23,7 +25,8 @@ function App() {
           </div>
           <LeadSelectionProvider >
             <LeadList />  
-            <SlideOver />  
+            <LeadEdit />
+            <OpportunityCreate />  
           </LeadSelectionProvider>
         </div>
       </LeadProvider>
