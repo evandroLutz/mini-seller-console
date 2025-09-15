@@ -28,11 +28,11 @@ function LeadList(): JSX.Element {
   return (
     <div className="p-4">
       <ul className="grid grid-cols-1 gap-6">
-        {currentItems.length > 0 ?currentItems.map((lead) => (
+        {currentItems.length > 0 ? currentItems.map((lead) => (
           <li key={lead.id}>
             <LeadRow lead={lead} />
           </li>
-        )): <LoaderSpinner/>}
+        )): loading ? <LoaderSpinner/> : "no results"}
       </ul>
 
       {totalPages > 1 && (
